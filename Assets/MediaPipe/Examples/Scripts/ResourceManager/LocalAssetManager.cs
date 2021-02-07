@@ -33,10 +33,12 @@ public sealed class LocalAssetManager : ResourceManager {
     var assetName = GetAssetName(assetPath);
     var localPath = GetLocalFilePath(assetName);
 
+
     if (File.Exists(localPath)) {
       return localPath;
     }
 
+    Debug.LogWarning($"{localPath} does not exist");
     return null;
   }
 
@@ -62,7 +64,7 @@ public sealed class LocalAssetManager : ResourceManager {
     var assetName = Path.GetFileNameWithoutExtension(assetPath);
     var extension = Path.GetExtension(assetPath);
 
-    return (extension == ".tflite" || extension == ".bytes") ? $"{assetName}.bytes" : $"{assetName}.txt";
+    return (extension == ".tflite" || extension == ".bytes") ? $"{assetName}.bytes" : $"{assetName}{extension}";
   }
 
   static string GetLocalFilePath(string assetName) {
